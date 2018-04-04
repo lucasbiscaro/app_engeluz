@@ -3,6 +3,10 @@
     font-family: 'Roboto',sans-serif;
 }
 
+*:focus{
+  outline:0;
+}
+
 .hidden{
   display: none;
 }
@@ -21,37 +25,52 @@
 
 .painel-login{
   width: 90%;
-  background: rgba(1,0,1,0.4);
-  margin: 5%;
+  margin:5%;
+  position: relative;
+  background: rgba(255,255,255,0.4);
   border-radius: 10px;
 }
 
 .form-login{
-  width: 93.5%;
+  width: 97.5%;
+  height: 50px;
   text-align: center;
-  margin:auto;
-  position: relative;
+  text-transform: uppercase;
   margin: 1%;
-  padding: 2%;
-  border: 2px solid #bbb;
+  border: 2px% solid #bbb;
   border-radius: 5px;
 }
 
 .login-header{
-  width: 50%
   text-align: center;
-  image-orientation
+  margin: 5%;
 }
 
+.image-center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5%;
+  width:50%
+}
 
+.btn{
+  width: 46%;
+  height: 50px;
+  margin: 2.5% 0% 2.5% 2.5%;
+  border-radius: 5px;
+  border: 0;
+}
 
+.btn-primary{
+  background: #0383C5;
+  color: white;
+}
 
-
-
-
-
-
-
+.btn-success{
+  background: #069040;
+  color:white;
+}
 
 
 
