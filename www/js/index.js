@@ -41,6 +41,37 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+
 };
+
+window.onload=getExif;
+
+var fs = require('fs');
+var dir = './img';
+
+fs.readdir(dir, (err, files) => {
+  console.log(files.length);
+});
+
+function getExif() {
+    var img1 = document.getElementById("img1");
+    EXIF.getData(img1, function() {
+        var make = EXIF.getTag(this, "Make");
+        var model = EXIF.getTag(this, "Model");
+        var lat = EXIF.getTag(this, "GPSLatitude");
+        var long = EXIF.getTag(this, "GPSLongitude");
+        var allMetaDataSpan = document.getElementById("allMetaDataSpan");
+        allMetaDataSpan.innerHTML = `-${lat[0]}°${lat[1]}'${lat[2]}",-${long[0]}°${long[1]}'${long[2]}"`;
+    });
+
+    var img2 = document.getElementById("img2");
+    EXIF.getData(img2, function() {
+        var lat2 = EXIF.getTag(this, "GPSLatitude");
+        var long2 = EXIF.getTag(this, "GPSLongitude");
+        var allMetaDataSpan2 = document.getElementById("allMetaDataSpan2");
+        allMetaDataSpan2.innerHTML = `-${lat2[0]}°${lat2[1]}'${lat2[2]}",-${long2[0]}°${long2[1]}'${long2[2]}"`;
+        files.innerHTML = files.length;
+    });
+}
 
 app.initialize();

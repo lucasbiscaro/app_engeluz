@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EXIF example with inline EXIF info</title>
+</head>
+<body>
+
+  <img src="img/DSCN0614_small.jpg" id="img1" />
+  <pre>Make and model: </pre><span id="makeAndModel"></span>
+    <br/>
+
+  <img src="img/GOPR0024.jpg" id="img2" />
+  <pre id="allMetaDataSpan"></pre>
+  <br/>
+
+  <img src="img/GOPR0024.jpg" id="img3" /><br/>
+  <pre id="img3WithXmpMetaData"></pre>
+
+  <script type="text/javascript" src="exif-js.js"></script>
+  <script>
+    "use strict";
+    window.onload=getExif;
+
+    function getExif() {
+    var img1 = document.getElementById("img1");
+    EXIF.getData(img1, function() {
+        var make = EXIF.getTag(this, "Make");
+        var model = EXIF.getTag(this, "Model");
+        var makeAndModel = document.getElementById("makeAndModel");
+        makeAndModel.innerHTML = `${make} ${model} ${make}`;
+    });
+    var img2 = document.getElementById("img2");
+    EXIF.getData(img2, function() {
+        var lat = EXIF.getTag(this, "GPSLatitude");
+        var long = EXIF.getTag(this, "GPSLongitude");
+        var allMetaData = EXIF.getAllTags(this);
+        var allMetaDataSpan = document.getElementById("allMetaDataSpan");
+        allMetaDataSpan.innerHTML = `-${lat[0]}°${lat[1]}'${lat[2]}",-${long[0]}°${long[1]}'${long[2]}"`;
+    });
+    var img3 = document.getElementById("img3");
+    // EXIF.enableXmp();
+    EXIF.getData(img3, function() {
+        var allMetaData = EXIF.getAllTags(this);
+        var lat = EXIF.getTag(this, "GPSLatitude");
+        var img3WithXmpMetaData = document.getElementById("img3WithXmpMetaData");
+        img3WithXmpMetaData.innerHTML = JSON.stringify(lat, null, "\t");
+    });
+}
+</script>
+</body>
+</html>
