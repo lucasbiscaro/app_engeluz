@@ -44,16 +44,40 @@ var app = {
 
 };
 
-window.onload=getExif;
 
-var fs = require('fs');
-var dir = './img';
 
-fs.readdir(dir, (err, files) => {
-  console.log(files.length);
+
+
+window.onload=function(){
+
+ // Criando a varíavel para visualização
+var mapa = L.map("meumapa",{
+  center: [-25.5, -49.25],
+  zoom: 11
 });
 
-function getExif() {
+//Base do site Leaflet Provider Demo
+var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+maxZoom: 20,
+attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(mapa);
+
+var OpenStreetMap_France2 = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+maxZoom: 20,
+attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+
+//Zoom para a posiçao do usuário
+mapa.locate({
+  setView: true,
+  maxZoom: 18,
+  timeout: 10000
+});
+
+
+var simbolo = ["img1"];
+
+
     var img1 = document.getElementById("img1");
     EXIF.getData(img1, function() {
         var make = EXIF.getTag(this, "Make");
@@ -61,7 +85,7 @@ function getExif() {
         var lat = EXIF.getTag(this, "GPSLatitude");
         var long = EXIF.getTag(this, "GPSLongitude");
         var allMetaDataSpan = document.getElementById("allMetaDataSpan");
-        allMetaDataSpan.innerHTML = `-${lat[0]}°${lat[1]}'${lat[2]}",-${long[0]}°${long[1]}'${long[2]}"`;
+        allMetaDataSpan.innerHTML = `-${lat[0]}°${lat[1]}'${lat[2]}",-${long[0]}°${long[1]}'${long[2]}" ${rotator.length}`;
     });
 
     var img2 = document.getElementById("img2");
@@ -70,7 +94,7 @@ function getExif() {
         var long2 = EXIF.getTag(this, "GPSLongitude");
         var allMetaDataSpan2 = document.getElementById("allMetaDataSpan2");
         allMetaDataSpan2.innerHTML = `-${lat2[0]}°${lat2[1]}'${lat2[2]}",-${long2[0]}°${long2[1]}'${long2[2]}"`;
-        files.innerHTML = files.length;
+
     });
 }
 
